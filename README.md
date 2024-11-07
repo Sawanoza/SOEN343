@@ -12,9 +12,9 @@ Joumana Dargham
 Yashkumar Mehta
 
 ### Authors:
-Marc-Yves Malchev (Sawanoza) 40265238  
-Joseph Aladas (JosephAladas) 40156616
-Nektarios Zampetoulakis (NekZampe) 40211948  
+- Marc-Yves Malchev (Sawanoza) 40265238  
+- Joseph Aladas (JosephAladas) 40156616
+- Nektarios Zampetoulakis (NekZampe) 40211948  
 ...  
 ...  
 
