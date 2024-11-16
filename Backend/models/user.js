@@ -9,12 +9,12 @@ const User = sequelize.define('User', {
     allowNull: false,
     unique: true
   },
-  phoneNumber: {
+  password: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  paymentNumber: {
-    type: DataTypes.INTEGER,
+  phoneNumber: {
+    type: DataTypes.STRING,
     allowNull: false
   },
   type: {
@@ -23,10 +23,6 @@ const User = sequelize.define('User', {
   },
   companyName: {
     type: DataTypes.STRING,
-    allowNull: true
-  },
-  govClearance: {
-    type: DataTypes.BOOLEAN,
     allowNull: true
   },
   clientName: {
