@@ -15,7 +15,8 @@ Yashkumar Mehta
 - Marc-Yves Malchev (Sawanoza) 40265238  
 - Joseph Aladas (JosephAladas) 40156616
 - Nektarios Zampetoulakis (NekZampe) 40211948  
-- Adam Tahle (atahle) 40237870 
+- Adam Tahle (atahle) 40237870
+- 
 ...  
 
 ## Additional Documentation:  
