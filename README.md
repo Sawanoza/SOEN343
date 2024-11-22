@@ -16,7 +16,7 @@ Yashkumar Mehta
 - Joseph Aladas (JosephAladas) 40156616
 - Nektarios Zampetoulakis (NekZampe) 40211948  
 - Adam Tahle (atahle) 40237870
-- 
+- Ryad Alla (40227731)
 ...  
 
 ## Additional Documentation:  
