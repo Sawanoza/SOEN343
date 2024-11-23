@@ -4,4 +4,4 @@ class CostStrategyInterface {
     }
 }
 
-MediaSourceHandle.exports = CostStrategyInterface;
+module.exports = CostStrategyInterface;
