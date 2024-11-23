@@ -1,11 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser'); // For parsing JSON request bodies
-<<<<<<< Updated upstream
-const path = require('path');  // For serving static files
-=======
 const path = require('path'); // For serving static files
->>>>>>> Stashed changes
 const sequelize = require('./config/database');  // Import the Sequelize connection
 const { User } = require('./models/user');  // Import the User and child models
 const Transporter = require('./models/transporter.js');
@@ -19,15 +15,7 @@ const PORT = 3000;
 
 // Middleware to parse JSON
 app.use(bodyParser.json());
-<<<<<<< Updated upstream
-app.use(express.urlencoded({ extended: true }));  // For parsing application/x-www-form-urlencoded
-
-
-// Serve static files from the 'Frontend' folder (outside the Backend folder)
-app.use(express.static(path.join(__dirname, '../Frontend')));
-=======
 app.use(cors());
->>>>>>> Stashed changes
 
 // Initialize the database and add sample data
 async function initializeDatabase() {
@@ -36,37 +24,6 @@ async function initializeDatabase() {
 
   //--------------------------------- SAMPLE USERS ----------------------------------------------
   
-<<<<<<< Updated upstream
-// Creating a Company user
-const newCompany = await User.create({
-  email: 'company@company.com',
-  password: 'company',
-  phoneNumber: '2222222222',
-  type: 'Company', 
-  companyName: 'Company One',  
-});
-console.log("Company user created:", newCompany.toJSON());
-
-// Creating a Client user
-const newClient = await User.create({
-  email: 'client@client.com',
-  password: 'client',
-  phoneNumber: '33333333333',
-  type: 'Client',
-  clientName: 'Client One', 
-});
-console.log("Client user created:", newClient.toJSON());
-
-// Creating an Admin user
-const newAdmin = await User.create({
-  email: 'admin@admin.com',
-  password: 'admin',
-  phoneNumber: '1111111111',
-  type: 'Admin',
-  adminName: 'Admin', 
-});
-console.log("Admin user created:", newAdmin.toJSON());
-=======
   // Creating a Company user
   const newCompany = await User.create({
     email: 'company@example.com',
@@ -97,7 +54,6 @@ console.log("Admin user created:", newAdmin.toJSON());
     adminName: 'Admin Super',  // Specific field for Admin
   });
   console.log("Admin user created:", newAdmin.toJSON());
->>>>>>> Stashed changes
 
   //--------------------------------- SAMPLE TRANSPORTERS ----------------------------------------------
   // Create a sample transport record for testing
@@ -128,42 +84,6 @@ console.log("Admin user created:", newAdmin.toJSON());
   });
   console.log("Sample order detail created:", newOrderDetail.toJSON());
 
-<<<<<<< Updated upstream
- // Creating a sample order
-//  const newOrder = await Order.create({
-//   trackingID: 'TR12345',
-//   date: new Date('2024-11-07T10:00:00Z')
-// });
-// console.log("Sample order created:", newOrder.toJSON());
-
-// // Creating a sample order detail for the order
-// const newOrderDetail = await OrderDetail.create({
-//   quantity: 3,
-//   dimensions: '20x30x40 cm',
-//   taxStatus: 'taxable',
-//   orderId: newOrder.id  // Foreign key linking to the order
-// });
-// console.log("Sample order detail created:", newOrderDetail.toJSON());
-
-// // Creating sample items for the order detail
-// const newItem1 = await Item.create({
-//   name: 'Item 1',
-//   description: 'Description of Item 1',
-//   itemNumber: 'ITEM123',
-//   shippingWeight: 1.2,
-//   orderDetailId: newOrderDetail.id  // Foreign key linking to the order detail
-// });
-// console.log("Sample item 1 created:", newItem1.toJSON());
-
-// const newItem2 = await Item.create({
-//   name: 'Item 2',
-//   description: 'Description of Item 2',
-//   itemNumber: 'ITEM124',
-//   shippingWeight: 1.5,
-//   orderDetailId: newOrderDetail.id  // Foreign key linking to the order detail
-// });
-// console.log("Sample item 2 created:", newItem2.toJSON());
-=======
   // Creating sample items for the order detail
   const newItem1 = await Item.create({
     name: 'Item 1',
@@ -173,7 +93,6 @@ console.log("Admin user created:", newAdmin.toJSON());
     orderDetailId: newOrderDetail.id  // Foreign key linking to the order detail
   });
   console.log("Sample item 1 created:", newItem1.toJSON());
->>>>>>> Stashed changes
 
   const newItem2 = await Item.create({
     name: 'Item 2',
