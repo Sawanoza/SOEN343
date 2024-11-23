@@ -1,7 +1,7 @@
 const CostContext = require("../CostModules/CostContext");
 const PriorityBasedCost = require("../CostModules/PriorityBasedCost");
 
-class ExpressQuotation {
+class ExpressQuotation extends QuotationStrategy{
 
     calculateCost(amount, weight, distance){  
         CostContext = new CostContext(new PriorityBasedCost());
@@ -13,6 +13,7 @@ class ExpressQuotation {
 
         // Something random for profit idk
         cost *= 1.3;
+        return cost;
     }
 }
 

@@ -1,7 +1,7 @@
 const CostContext = require("../CostModules/CostContext");
 const DistanceBasedCost = require("../CostModules/SpeedBasedCost");
 
-class StandardQuotation {
+class StandardQuotation extends QuotationStrategy{
 
     calculateCost(amount, weight, distance){  
         CostContext = new CostContext(new DistanceBasedCost());
@@ -13,6 +13,7 @@ class StandardQuotation {
 
         // Something random for profit idk
         cost *= 1.3;
+        return cost;
     }
 }
 
