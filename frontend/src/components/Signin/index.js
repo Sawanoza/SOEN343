@@ -26,7 +26,7 @@ function SignIn() {
     <>
     <Container>
         <FormWrap>
-            <Icon to="/">Rent.</Icon>
+            <Icon to="/">Delivery.</Icon>
             <FormContent>
                 <Form onSubmit={handleSubmit}>
                     <FormH1>Sign in to your account</FormH1>
