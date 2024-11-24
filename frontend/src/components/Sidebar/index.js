@@ -10,7 +10,12 @@ import {SidebarContainer,
     } from './SidebarElements'
 
 const Sidebar = ({isOpen, toggle}) => {
-  return (
+    
+    const handleClick = () => {
+        window.location.href = '/HTML/signup.html'
+      }
+  
+    return (
     <SidebarContainer isOpen={isOpen} onClick={toggle}>
         <Icon onClick={toggle}>
             <CloseIcon/>
@@ -23,7 +28,7 @@ const Sidebar = ({isOpen, toggle}) => {
                 <SidebarLink to="signup" onClick={toggle}>Sign Up</SidebarLink>
             </SidebarMenu>
             <SideBtnWrap>
-                <SidebarRoute to="http://localhost:8800/sign_in.html">Sign In</SidebarRoute>
+                <SidebarRoute onClick={handleClick}>Sign In</SidebarRoute>
             </SideBtnWrap>
         </SidebarWrapper>
     </SidebarContainer>

@@ -10,6 +10,10 @@ const HeroSection = () => {
         setHover(!hover)
     }
 
+    const handleClick = () => {
+        window.location.href = '/HTML/signup.html'
+      }
+
   return (
     <HeroContainer id='home'>
         <HeroBg>
@@ -19,7 +23,7 @@ const HeroSection = () => {
             <HeroH1>Delivery Made Easy</HeroH1>
             <HeroP>Sign up for a new account today!</HeroP>
             <HeroBtnWrapper>
-                <Button to="http://localhost:8800/SignUp.html" onMouseEnter={onHover} onMouseLeave={onHover} primary="true" dark="true" smooth={true} duration={500} spy={true} exact='true' offset={-80} style={{textDecoration: 'none'}}>
+                <Button onClick={handleClick} onMouseEnter={onHover} onMouseLeave={onHover} primary="true" dark="true" smooth={true} duration={500} spy={true} exact='true' offset={-80} style={{textDecoration: 'none'}}>
                     Get Started {hover ? <ArrowForward /> : <ArrowRight />}
                 </Button>
             </HeroBtnWrapper>

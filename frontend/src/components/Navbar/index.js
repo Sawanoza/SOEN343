@@ -32,6 +32,10 @@ const Navbar = ({toggle}) => {
         scroll.scrollToTop();
     }
 
+    const handleClick = () => {
+        window.location.href = '/HTML/signup.html'
+      }
+
   return (
     <>
     <IconContext.Provider value={{color: '#fff'}}>
@@ -56,7 +60,7 @@ const Navbar = ({toggle}) => {
                     </NavItem>
                 </NavMenu>
                 <NavBtn>
-                    <NavBtnLink to="http://localhost:8800/sign_in.html">Sign In</NavBtnLink>
+                    <NavBtnLink onClick={handleClick}>Sign In</NavBtnLink>
                 </NavBtn>
             </NavbarContainer>
         </Nav>
