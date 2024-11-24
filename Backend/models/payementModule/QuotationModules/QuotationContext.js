@@ -8,7 +8,7 @@ class QuotationContext {
     }
 
     calculateQuotation(amount, weight, distance){    
-        let cost = this.QuotationStrategy.calculateProfitPercentage(amount,weight,distance);
+        var cost = this.QuotationStrategy.calculateProfitPercentage(amount,weight,distance);
     }
 
 }
