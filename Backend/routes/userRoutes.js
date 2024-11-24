@@ -1,43 +1,114 @@
 // routes/userRoutes.js
 const express = require('express');
-const { User } = require('../models/user.js');  // Import User model
+const Account = require('../models/account');
 
 const router = express.Router();
 
-// Route to create a new user (could be Company, Client, or Admin)
+//============================================================================================
+// CREATE NEW ACCOUNT (client only)
+//============================================================================================
 router.post('/', async (req, res) => {
-  const { email, phoneNumber, paymentNumber, type, companyName, govClearance, clientName, adminName } = req.body;
+  const { email, password, phoneNumber } = req.body;
 
   try {
-    // Create a new user with the appropriate attributes based on the type
-    const newUser = await User.create({
+    //validate input
+    if (!email || !password || !phoneNumber) {
+      return res.status(400).json({ error: 'Email, password, and phone number are required' });
+    }
+
+    //check if email already taken
+    const existingAccount = await Account.findOne({ where: { email } });
+    if (existingAccount) {
+      return res.status(400).json({ error: 'Email already in use' });
+    }
+
+    //create new client account
+    const newClient = await Account.create({
       email,
-      phoneNumber,
-      paymentNumber,
-      type,  // This will differentiate between Company, Client, Admin
-      companyName: type === 'Company' ? companyName : null,
-      govClearance: type === 'Company' ? govClearance : null,
-      clientName: type === 'Client' ? clientName : null,
-      adminName: type === 'Admin' ? adminName : null,
+      password,
+      phoneNumber
     });
 
-    res.status(201).json(newUser);  // Return the created user
+    res.status(201).json({ message: 'Client account created successfully', account: newClient });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Unable to create user' });
+    res.status(500).json({ error: 'Unable to create account' });
   }
 });
+//============================================================================================
 
-// Route to get all users with their child details (Company, Client, Admin)
+
+
+//============================================================================================
+// RETURN ALL ACCOUNTS
+//============================================================================================
 router.get('/', async (req, res) => {
   try {
-    // Fetch all users and include relevant fields based on user type
-    const usersWithDetails = await User.findAll();
-    res.json(usersWithDetails);  // Return users with their fields
+    const accounts = await Account.findAll({
+      attributes: ['id', 'email', 'password', 'phoneNumber'],
+    });
+
+    res.json(accounts);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Unable to fetch users' });
+    res.status(500).json({ error: 'Unable to fetch accounts' });
   }
 });
+//============================================================================================
+
+
+
+//============================================================================================
+// GET ACCOUNT BY ID
+//============================================================================================
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const account = await Account.findByPk(id, {
+      attributes: ['id', 'email', 'password', 'phoneNumber'],
+    });
+
+    if (!account) {
+      return res.status(404).json({ error: 'Account not found' });
+    }
+
+    res.json(account);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Unable to fetch account' });
+  }
+});
+//============================================================================================
+
+
+
+//============================================================================================
+// DELETE ACCOUNT BY ID (admin only)
+//============================================================================================
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    //prevent deletion of admin account
+    if (id === '1') {
+      return res.status(403).json({ error: 'Admin account cannot be deleted' });
+    }
+
+    const rowsDeleted = await Account.destroy({ where: { id } });
+
+    if (rowsDeleted === 0) {
+      return res.status(404).json({ error: 'Account not found' });
+    }
+
+    res.json({ message: 'Account deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Unable to delete account' });
+  }
+});
+//============================================================================================
+
+
 
 module.exports = router;
