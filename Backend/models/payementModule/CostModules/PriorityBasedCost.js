@@ -4,6 +4,7 @@ class PriorityBasedCost extends CostStrategyInterface{
     calculateCost(amount, weight, distance){    
         //Random amount modifier we can readjust
         amount = amount * 1.33;
+        console.log("PriorityBased Cost Amount returning:", amount );
         return amount;
     }
 }

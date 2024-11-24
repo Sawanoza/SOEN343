@@ -1,4 +1,4 @@
-class CostContext {
+class CostContext  {
     constructor(CostStrategyInterface) {
         this.CostStrategyInterface = CostStrategyInterface;
     }

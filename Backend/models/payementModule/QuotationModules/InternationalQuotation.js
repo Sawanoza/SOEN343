@@ -1,11 +1,12 @@
 const CostContext = require("../CostModules/CostContext");
 const SpeedBasedCost = require("../CostModules/SpeedBasedCost");
+const QuotationStrategy = require("./QuotationStrategy");
 
 class InternationalQuotation extends QuotationStrategy{
 
     calculateCost(amount, weight, distance){  
-        CostContext = new CostContext(new SpeedBasedCost());
-        let price = CostContext.calculateCost(amount, weight, distance);
+        const costContext = new CostContext(new SpeedBasedCost());
+        let price = costContext.calculateCost(amount, weight, distance);
         return price;
     }
     calculateProfitPercentage(amount, weight, distance){
