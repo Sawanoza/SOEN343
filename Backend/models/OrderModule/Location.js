@@ -13,4 +13,4 @@ const Warehouse = class {
     }
 };
 
-export { Location, Warehouse };
+module.exports = { Location, Warehouse };

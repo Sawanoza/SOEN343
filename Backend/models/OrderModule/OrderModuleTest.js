@@ -1,12 +1,14 @@
 // Import classes and enums
-import Transporter, { Type, Status } from './Transporter.js';
-import Item from './Item.js';
+const { Transporter, Type, Status } = require('./Transporter.cjs');
+const Item = require('./Item.js');
 const OrderDetail = require('./OrderDetails.js');
-import NotificationSystem from './Notification/NotificationSystem.js';
-import UserInterface from './Notification/UserInterface.js';
-import AnalyticsService from './Notification/AnalyticsService.js';
-import Order from './Order.js';
-import { Location, Warehouse } from './Location.js';
+const NotificationSystem = require('./Notification/NotificationSystem.js');
+const UserInterface = require('./Notification/UserInterface.js');
+const AnalyticsService = require('./Notification/AnalyticsService.js');
+const Order = require('./Order.js');
+const { Location, Warehouse } = require('./Location.js');
+console.log(OrderDetail);
+
 
 function main() {
     // Step 1: Create items
@@ -52,7 +54,7 @@ function main() {
 
     // Step 8: Update transporter location and calculate ETA
     console.log('\n--- Updating Transporter Location ---');
-    transporter.updateLocation(40.7128, -74.0060); // New location: New York City
+    transporter.updateLocation(45.5017, -73.5673); // New location: Montreal
     transporter.displayDetails();
     const eta = transporter.calculateETA(40.7128, -74.0060, 60); // Destination: New York City, Speed: 60 km/h
     console.log(`Estimated Time of Arrival (ETA): ${eta.toFixed(2)} hours`);

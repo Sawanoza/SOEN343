@@ -1,13 +1,13 @@
 
 
 // Enum for Status
-export const Status = Object.freeze({
+const Status = Object.freeze({
     Transit: 'Transit',
     Charging: 'Charging',
     Ready: 'Ready'
 });
 
-export const Type = Object.freeze({
+const Type = Object.freeze({
     EV_Truck: 'EV Truck',
     Drone: 'Drone'
 });
@@ -69,4 +69,4 @@ class Transporter {
 }
 
 
-export default Transporter;
+module.exports = { Transporter, Type, Status };

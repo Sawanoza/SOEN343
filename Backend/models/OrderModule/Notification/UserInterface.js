@@ -1,6 +1,6 @@
 // UserInterface.js
 
-import IObserver from './IObserver.js';
+const IObserver = require( './IObserver.js');
 
 class UserInterface extends IObserver {
     constructor() {
@@ -13,4 +13,4 @@ class UserInterface extends IObserver {
     }
 }
 
-export default UserInterface;
+module.exports = UserInterface;

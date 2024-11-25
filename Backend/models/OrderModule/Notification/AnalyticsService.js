@@ -1,8 +1,8 @@
 // AnalyticsService.js
 
-import Observer from './IObserver.js';
+const IObserver = require( './IObserver.js');
 
-class AnalyticsService extends Observer {
+class AnalyticsService extends IObserver {
     constructor() {
         super();
     }
@@ -13,4 +13,4 @@ class AnalyticsService extends Observer {
     }
 }
 
-export default AnalyticsService;
+module.exports = AnalyticsService;

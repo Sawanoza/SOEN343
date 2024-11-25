@@ -6,4 +6,4 @@ class IObserver {
     }
 }
 
-export default IObserver;
+module.exports = IObserver;

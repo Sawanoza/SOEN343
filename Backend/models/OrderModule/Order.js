@@ -70,9 +70,7 @@ class Order {
     });
 
     // Add transport cost (battery usage, distance, etc.) if a transporter is assigned
-    if (this.transporter) {
-      totalCost += this.transporter.calculateTransportCost(this.calculateTotalWeight());  // Add transport cost
-    }
+
 
     return totalCost;
   }
@@ -109,4 +107,4 @@ class Order {
 }
 
 // Export the Order class
-export default Order;
+module.exports = Order;

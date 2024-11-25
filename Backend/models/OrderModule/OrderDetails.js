@@ -24,12 +24,12 @@ class OrderDetail {
 
         // Add price of each item in the order detail
         this.items.forEach(item => {
-            total += item.getPriceForQuantity(1);  // Example: Get price for 1 quantity
+            total += item.getPriceForQuantity(this.quality);  // Example: Get price for 1 quantity
         });
 
         // Add tax and shipping cost (calculated in other methods)
-        total += this.calcTax();
-        total += this.calcWeight();
+        //total += this.calcTax();
+        //total += this.calcWeight();
 
         return total;
     }
@@ -46,4 +46,4 @@ class OrderDetail {
     }
 }
 
-module.export = OrderDetail;
+module.exports = OrderDetail;

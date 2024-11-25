@@ -1,6 +1,6 @@
 // NotificationSystem.js
 
-import IObserver from './IObserver.js';
+const IObserver = require( './IObserver.js');
 
 class NotificationSystem extends IObserver {
     constructor() {
@@ -13,4 +13,4 @@ class NotificationSystem extends IObserver {
     }
 }
 
-export default NotificationSystem;
+module.exports = NotificationSystem;

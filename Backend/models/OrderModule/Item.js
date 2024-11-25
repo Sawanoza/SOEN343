@@ -20,4 +20,4 @@ class Item {
     }
 }
 // Export the Item class
-export default Item;
+module.exports = Item;
