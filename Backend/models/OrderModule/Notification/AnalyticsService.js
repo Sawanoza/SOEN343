@@ -1,5 +1,16 @@
-class AnalyticsService {
+// AnalyticsService.js
+
+import Observer from './Observer.js';
+
+class AnalyticsService extends Observer {
+    constructor() {
+        super();
+    }
+
     updateStatus(status) {
-        // Logic to update analytics data
+        // Log the status change for analytics purposes
+        console.log(`AnalyticsService: Order status changed to ${status}`);
     }
 }
+
+export default AnalyticsService;

@@ -1,5 +1,16 @@
-class UserInterface {
+// UserInterface.js
+
+import Observer from './Observer.js';
+
+class UserInterface extends Observer {
+    constructor() {
+        super();
+    }
+
     updateStatus(status) {
-        // Logic to update status in the UI
+        // Update the user interface (UI) when the order status changes
+        console.log(`UserInterface: Updating UI - Order status changed to ${status}`);
     }
 }
+
+export default UserInterface;
