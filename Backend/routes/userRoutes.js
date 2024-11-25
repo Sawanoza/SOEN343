@@ -1,4 +1,3 @@
-// routes/userRoutes.js
 const express = require('express');
 const Account = require('../models/account');
 
@@ -7,32 +6,20 @@ const router = express.Router();
 //============================================================================================
 // CREATE NEW ACCOUNT (client only)
 //============================================================================================
-router.post('/', async (req, res) => {
-  const { email, password, phoneNumber } = req.body;
+router.post('/accounts', async (req, res) => {
+  const { email, password, phoneNumber} = req.body;
 
   try {
-    //validate input
-    if (!email || !password || !phoneNumber) {
-      return res.status(400).json({ error: 'Email, password, and phone number are required' });
-    }
-
-    //check if email already taken
-    const existingAccount = await Account.findOne({ where: { email } });
-    if (existingAccount) {
-      return res.status(400).json({ error: 'Email already in use' });
-    }
-
-    //create new client account
-    const newClient = await Account.create({
+    const newAccount = await Account.create({
       email,
       password,
       phoneNumber
     });
 
-    res.status(201).json({ message: 'Client account created successfully', account: newClient });
+    res.status(201).json(newAccount); //return created account
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Unable to create account' });
+    res.status(500).json({ error: 'Unable to create account.' });
   }
 });
 //============================================================================================

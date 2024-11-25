@@ -1,25 +1,37 @@
 //===============================================================================================
-// ACCOUNTS (MARC)
+// ACCOUNTS & APPLICATION (MARC)
 const Account = require('./models/account');
+const userRoutes = require('./routes/userRoutes');
+const express = require('express');
+const cors = require('cors');
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use('/api', userRoutes)
+
+const PORT = 3000;
 //===============================================================================================
 
 // index.js
-const express = require('express');
 const bodyParser = require('body-parser'); // For parsing JSON request bodies
 const sequelize = require('./config/database');  // Import the Sequelize connection
 const Transporter = require('./models/transporter.js');
 const { Order, OrderDetail, Item } = require('./models/order');  // Import models
-const userRoutes = require('./routes/userRoutes'); // Import routes
+
 const transportRoutes = require('./routes/transporterRoutes');  // Import transport routes
 const orderRoutes = require('./routes/orderRoutes');
 
-const app = express();
-const PORT = 3000;
 
-// Middleware to parse JSON
-app.use(bodyParser.json());
 
-// Initialize the database and add sample data
+
+
+
+
+
+
+//initialize database
 async function initializeDatabase() {
   await sequelize.sync({ force: true });
   console.log("In-memory database is ready!");
