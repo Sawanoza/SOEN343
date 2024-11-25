@@ -12,3 +12,6 @@ class Warehouse {
         this.location = location;  // Instance of Location
     }
 }
+
+// Correct export syntax
+module.exports = { Location, Warehouse };

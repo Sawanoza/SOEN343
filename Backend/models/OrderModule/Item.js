@@ -19,3 +19,5 @@ class Item {
         return this.inStock;
     }
 }
+// Export the Item class
+export default Item;
