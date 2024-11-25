@@ -15,13 +15,8 @@ const PORT = 3000;
 //===============================================================================================
 
 // index.js
-const bodyParser = require('body-parser'); // For parsing JSON request bodies
 const sequelize = require('./config/database');  // Import the Sequelize connection
-const Transporter = require('./models/transporter.js');
-const { Order, OrderDetail, Item } = require('./models/order');  // Import models
 
-const transportRoutes = require('./routes/transporterRoutes');  // Import transport routes
-const orderRoutes = require('./routes/orderRoutes');
 
 
 
@@ -47,29 +42,6 @@ const adminAccount = await Account.create({
 });
 //===============================================================================================
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

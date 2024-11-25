@@ -4,9 +4,9 @@ const Account = require('../models/account');
 const router = express.Router();
 
 //============================================================================================
-// CREATE NEW ACCOUNT (client only)
+// CREATE NEW ACCOUNT
 //============================================================================================
-router.post('/accounts', async (req, res) => {
+router.post('/signup', async (req, res) => {
   const { email, password, phoneNumber} = req.body;
 
   try {
@@ -20,6 +20,38 @@ router.post('/accounts', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Unable to create account.' });
+  }
+});
+//============================================================================================
+
+
+
+//============================================================================================
+// LOGIN
+//============================================================================================
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const account = await Account.findOne({
+      where: { email },
+    });
+
+    if (!account) {
+      return res.status(404).json({ error: 'Account not found' });
+    }
+
+    //compare passwords
+    if (account.password !== password) {
+      return res.status(401).json({ error: 'Incorrect password' });
+    }
+
+    //if email and password match, return account details or a success message
+    res.json({ message: 'Login successful', accountId: account.id });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Unable to log in' });
   }
 });
 //============================================================================================

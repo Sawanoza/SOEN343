@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delivery.</title>
-    <link rel="stylesheet" href="../CSS/signup.css">
+    <title>Login</title>
+    <link rel="stylesheet" href="../CSS/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -12,12 +12,12 @@
         <div class="FormWrap">
             <a class="Icon" href="http://localhost:3001/">Delivery.</a>
             <div class="FormContent">
-                <form class="Form" id="signupForm">
-                    <div class="FormH1">Create an account</div>
+                <form class="Form" id="loginForm">
+                    <div class="FormH1">Login to your account</div>
                     <div class="FormRow">
                         <div class="FormInputWrapper">
                             <label class="FormLabel" for="email">Email</label></br>
-                            <input class="FormInput" type="email" id="email" name="email" placeholder="example@example.com" required>
+                            <input class="FormInput" type="text" id="email" name="email" placeholder="example@example.com" required>
                         </div>
                     </div>
                     <div class="FormRow">
@@ -26,53 +26,44 @@
                             <input class="FormInput" type="password" id="password" name="password" placeholder="Password" required>
                         </div>
                     </div>
-                    <div class="FormRow">
-                        <div class="FormInputWrapper">
-                            <label class="FormLabel" for="phoneNumber">Phone Number</label></br>
-                            <input class="FormInput" type="tel" id="phoneNumber" name="phoneNumber" placeholder="XXXXXXXXXX" required>
-                        </div>
-                    </div>
-
-                    <button class="FormButton" type="submit" id="signupButton">Sign Up</button>
+                    <button class="FormButton" type="submit" id="loginButton">Login</button>
                 </form>
             </div>
         </div>
     </div>
 
     <script>
-        document.getElementById('signupForm').addEventListener('submit', async function(event) {
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
             event.preventDefault();
 
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const phoneNumber = document.getElementById('phoneNumber').value;
 
-            const userData = {
+            const loginData = {
                 email,
-                password,
-                phoneNumber
+                password
             };
 
             try {
-                const response = await fetch('http://localhost:3000/api/signup', {
+                const response = await fetch('http://localhost:3000/api/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(userData),
+                    body: JSON.stringify(loginData),
                 });
 
                 const result = await response.json();
 
                 if (response.ok) {
-                    //success: Redirect to login page
-                    // window.location.href = 'sign_in.html';
+                    //success: Redirect to dashboard or home page
+                    window.location.href = '/dashboard.html';  // Modify according to your actual path
                 } else {
                     alert(result.error || 'An error occurred. Please try again.');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Unable to create account. Please try again.');
+                alert('Unable to login. Please try again.');
             }
         });
     </script>

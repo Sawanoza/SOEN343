@@ -33,7 +33,7 @@ const Navbar = ({toggle}) => {
     }
 
     const handleClick = () => {
-        window.location.href = '/HTML/signup.html'
+        window.location.href = '/HTML/login.html'
       }
 
   return (
