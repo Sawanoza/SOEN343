@@ -1,7 +1,7 @@
 //===============================================================================================
 // ACCOUNTS & APPLICATION (MARC)
 const Account = require('./models/account');
-const userRoutes = require('./routes/userRoutes');
+const accountRoutes = require('./routes/accountRoutes');
 const express = require('express');
 const cors = require('cors');
 
@@ -9,7 +9,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/api', userRoutes)
+app.use('/api', accountRoutes)
+app.use('/api/accounts', accountRoutes);
+
 
 const PORT = 3000;
 //===============================================================================================
@@ -50,7 +52,7 @@ const adminAccount = await Account.create({
 //===============================================================================================
 // ROUTES
 //===============================================================================================
-app.use('/users', userRoutes);
+app.use('/users', accountRoutes);
 // app.use('/transporters', transportRoutes);
 // app.use('/orders', orderRoutes);
 //===============================================================================================

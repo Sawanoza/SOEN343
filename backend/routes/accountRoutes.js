@@ -61,7 +61,7 @@ router.post('/login', async (req, res) => {
 //============================================================================================
 // RETURN ALL ACCOUNTS
 //============================================================================================
-router.get('/', async (req, res) => {
+router.get('/accounts', async (req, res) => {
   try {
     const accounts = await Account.findAll({
       attributes: ['id', 'email', 'password', 'phoneNumber'],
@@ -103,13 +103,12 @@ router.get('/:id', async (req, res) => {
 
 
 //============================================================================================
-// DELETE ACCOUNT BY ID (admin only)
+// DELETE ACCOUNT BY ID
 //============================================================================================
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
-    //prevent deletion of admin account
     if (id === '1') {
       return res.status(403).json({ error: 'Admin account cannot be deleted' });
     }
