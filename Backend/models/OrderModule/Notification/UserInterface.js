@@ -1,8 +1,8 @@
 // UserInterface.js
 
-import Observer from './Observer.js';
+import IObserver from './IObserver.js';
 
-class UserInterface extends Observer {
+class UserInterface extends IObserver {
     constructor() {
         super();
     }

@@ -1,8 +1,8 @@
 // NotificationSystem.js
 
-import Observer from './Observer.js';
+import IObserver from './IObserver.js';
 
-class NotificationSystem extends Observer {
+class NotificationSystem extends IObserver {
     constructor() {
         super();
     }

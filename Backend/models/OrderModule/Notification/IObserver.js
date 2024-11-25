@@ -1,9 +1,9 @@
 // Observer.js
 
-class Observer {
+class IObserver {
     updateStatus(status) {
         throw "updateStatus() method should be implemented in subclasses.";
     }
 }
 
-export default Observer;
+export default IObserver;

@@ -1,6 +1,6 @@
 // AnalyticsService.js
 
-import Observer from './Observer.js';
+import Observer from './IObserver.js';
 
 class AnalyticsService extends Observer {
     constructor() {
