@@ -6,6 +6,7 @@ import InfoSection from '../components/InfoSection'
 import { homeObjOne, homeObjTwo, homeObjThree } from '../components/InfoSection/Data'
 import Services from '../components/Services'
 import Footer from '../components/Footer'
+import DroneMap from '../components/Extra/DroneMap'
 
 import ChatBot from '../components/ChatBot'
 
@@ -29,6 +30,7 @@ const Home = () => {
         <ChatBot />
         <InfoSection {...homeObjThree}/>
         <Footer/>
+        <DroneMap></DroneMap>
     </>
   )
 }

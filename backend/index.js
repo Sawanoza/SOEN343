@@ -2,6 +2,7 @@
 // ACCOUNTS & APPLICATION (MARC)
 const Account = require('./models/account');
 const accountRoutes = require('./routes/accountRoutes');
+const OrderRoutes = require('./routes/orderRoutes')
 const express = require('express');
 const cors = require('cors');
 
@@ -53,8 +54,9 @@ const adminAccount = await Account.create({
 // ROUTES
 //===============================================================================================
 app.use('/users', accountRoutes);
+app.use('/order', OrderRoutes );
 // app.use('/transporters', transportRoutes);
-// app.use('/orders', orderRoutes);
+// app.use('/orders', OrderRoutes);
 //===============================================================================================
 
 //===============================================================================================
