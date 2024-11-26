@@ -9,8 +9,8 @@
     overflow: hidden;
     background: linear-gradient(
     108deg,
-    rgba(255, 94, 77, 1) 0%,
-    rgba(255, 179, 71, 1) 100%
+    rgba(255, 202, 58, 1) 0%,
+    rgba(255, 245, 157, 1) 100%
     );
 }
 
@@ -29,7 +29,7 @@
     font-weight: 700;
     font-size: 32px;
 }
-    
+
 .FormContent {
     height: 100%;
     display: flex;
@@ -38,10 +38,42 @@
     align-items: center;
 }
 
-.AdminHeader {
-    margin-bottom: 40px;
+.Header {
     text-align: center;
     color: black;
+}
+
+.WarehousesTable {
+    width: 60%;
+    border-collapse: collapse;
+}
+
+.WarehousesTable th, .WarehousesTable td {
+    padding: 6px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.WarehousesTable th {
+    background-color: black;
+    color: white;
+}
+
+.deleteBtn {
+    background-color: #ffb300;
+    color: black;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.deleteBtn:hover {
+    background-color: #e68900;
+}
+
+.ButtonWrapper {
+    margin-top: 20px;
 }
 
 .FormButton {
@@ -53,10 +85,6 @@
     font-size: 1.2rem;
     cursor: pointer;
     width: 300px;
-}
-
-.ButtonWrapper {
-    margin-top: 20px;
 }
 
 * {

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>See Orders</title>
+    <link rel="stylesheet" href="../CSS/ordersUser.css">
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="Container">
+        <div class="FormWrap">
+            <a class="Icon" href="http://localhost:3001/">Delivery.</a>
+            <div class="FormContent">
+                <div class="Header">
+                    <h1>Your Orders</h1>
+                </div>
+                
+                <!-- Table to display orders -->
+                <table id="ordersTable" class="OrdersTable">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data dynamically inserted here -->
+                    </tbody>
+                </table>
+
+                <div class="ButtonWrapper">
+                    <button class="FormButton" onclick="window.location.href='userPage.html'">Back to Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //==================================================================================================
+        // GET ALL ORDERS FOR SPECIFIC USER (to be modified)
+        //==================================================================================================
+        async function fetchOrders() {
+            try {
+                const response = await fetch('http://localhost:3000/api/orders');
+                const orders = await response.json();
+
+                if (response.ok) {
+                    const tableBody = document.querySelector('#ordersTable tbody');
+                    tableBody.innerHTML = '';
+
+                    orders.forEach(order => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${order.id}</td>
+                            <td>${order.item}</td>
+                            <td>${order.quantity}</td>
+                            <td>${order.status}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    alert('Unable to fetch orders. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while fetching orders.');
+            }
+        }
+
+        // Fetch orders when the page loads
+        document.addEventListener('DOMContentLoaded', fetchOrders);
+    </script>
+</body>
+</html>
