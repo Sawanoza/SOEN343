@@ -14,7 +14,7 @@ app.use('/api', accountRoutes)
 app.use('/api/accounts', accountRoutes);
 
 
-const PORT = 3001;
+const PORT = 3000;
 //===============================================================================================
 
 // index.js
