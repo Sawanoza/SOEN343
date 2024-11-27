@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Warehouses</title>
     <link rel="stylesheet" href="../CSS/warehouses.css">
-    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@400;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <div class="Container">
         <div class="FormWrap">
@@ -15,12 +18,13 @@
                 <div class="Header">
                     <h1>All Warehouses</h1>
                 </div>
-                
+
                 <!-- Table to display order data -->
                 <table id="warehousesTable" class="WarehousesTable">
                     <thead>
                         <tr>
                             <th>Warehouse ID</th>
+                            <th>Name</th>
                             <th>Location</th>
                             <th>Capacity</th>
                             <th>Status</th>
@@ -33,7 +37,8 @@
                 </table>
 
                 <div class="ButtonWrapper">
-                    <button class="FormButton" onclick="window.location.href='adminPage.html'">Back to Admin Dashboard</button>
+                    <button class="FormButton" onclick="window.location.href='adminPage.html'">Back to Admin
+                        Dashboard</button>
                 </div>
             </div>
         </div>
@@ -56,6 +61,7 @@
                         const row = document.createElement('tr');
                         row.innerHTML = `
                             <td>${warehouse.id}</td>
+                            <td>${warehouse.name}</td>
                             <td>${warehouse.location}</td>
                             <td>${warehouse.capacity}</td>
                             <td>${warehouse.status}</td>
@@ -83,26 +89,25 @@
             if (!confirmation) return;
 
             try {
-                const response = await fetch(`http://localhost:3000/api/warehouses/${warehouseId}`, {
+                const response = await fetch(`http://localhost:3000/warehouse/${warehouseId}`, {
                     method: 'DELETE',
                 });
 
                 if (response.ok) {
                     alert('Warehouse deleted successfully');
-                    fetchWarehouses();
+                    fetchWarehouses(); // Refresh the warehouse list
                 } else {
                     alert('Unable to delete warehouse. Please try again.');
                 }
             } catch (error) {
                 console.error('Error deleting warehouse:', error);
-                alert('An error.occurred while deleting the warehouse.');
+                alert('An error occurred while deleting the warehouse.');
             }
         }
-        //==================================================================================================
-
         //fetchWarehouses function when page loads
         document.addEventListener('DOMContentLoaded', fetchWarehouses);
 
     </script>
 </body>
+
 </html>

@@ -78,23 +78,25 @@ router.put('/:warehouseId', async (req, res) => {
   }
 });
 
-// DELETE: Delete a warehouse
-router.delete('/:warehouseId', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
-    const { warehouseId } = req.params;
-    const warehouse = await Warehouse.findOne({ where: { warehouseId } });
+    const { id } = req.params;
+    console.log(`Delete request received for warehouse ID: ${id}`);
 
+    const warehouse = await Warehouse.findOne({ where: { id } });
     if (!warehouse) {
+      console.log(`Warehouse with ID ${id} not found.`);
       return res.status(404).json({ error: 'Warehouse not found.' });
     }
 
     await warehouse.destroy();
-
-    res.status(204).send(); // No content response
+    console.log(`Warehouse with ID ${id} deleted successfully.`);
+    res.status(204).send();
   } catch (error) {
-    console.error(error);
+    console.error('Error deleting warehouse:', error.message, error.stack);
     res.status(500).json({ error: 'Failed to delete warehouse.' });
   }
 });
+
 
 module.exports = router;

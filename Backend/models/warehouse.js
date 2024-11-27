@@ -2,12 +2,15 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database'); // Adjust path based on your project structure
 
 const Warehouse = sequelize.define('Warehouse', {
-  warehouseId: {
+  id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
-    field: 'warehouse_id', // Column name in the database
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   location: {
     type: DataTypes.STRING,
@@ -18,13 +21,14 @@ const Warehouse = sequelize.define('Warehouse', {
     allowNull: false,
   },
   status: {
-    type: DataTypes.ENUM('active', 'inactive', 'under maintenance'),
+    type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: 'active', // Default status
+    defaultValue: 'active',
   },
 }, {
-  timestamps: true, // Adds createdAt and updatedAt columns
-  tableName: 'warehouses', // Explicit table name if needed
+  timestamps: true,
+  tableName: 'warehouses',
 });
 
 module.exports = Warehouse;
+

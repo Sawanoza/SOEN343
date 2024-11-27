@@ -23,6 +23,7 @@
                             <th>Order ID</th>
                             <th>Arrival Date</th>
                             <th>Order Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,7 +58,7 @@
                             <td>${order.trackingID}</td>
                             <td>${order.arrivalDate}</td>
                             <td>${order.orderStatus}</td>
-                            <td><button class="deleteBtn" onclick="deleteOrder(${order.trackingID})">Delete</button></td>
+                            <td><button class="deleteBtn" onclick="deleteOrder('${order.trackingID}')">Delete</button></td>
                         `;
                         tableBody.appendChild(row);
                     });

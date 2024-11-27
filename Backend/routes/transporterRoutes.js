@@ -81,10 +81,10 @@ router.put('/:transporterId', async (req, res) => {
 });
 
 // DELETE: Delete a transporter
-router.delete('/:transporterId', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
-    const { transporterId } = req.params;
-    const transporter = await Transporter.findOne({ where: { transporterId } });
+    const { id } = req.params;
+    const transporter = await Transporter.findOne({ where: { id } });
 
     if (!transporter) {
       return res.status(404).json({ error: 'Transporter not found.' });
