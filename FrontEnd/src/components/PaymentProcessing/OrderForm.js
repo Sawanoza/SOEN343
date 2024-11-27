@@ -30,11 +30,11 @@ const OrderForm = ({ onComplete }) => {
       destinationAddress.city &&
       destinationAddress.country
     ) {
-      const randomDistance = Math.floor(Math.random() * 500) + 1;
-      let multiplier = 1;
+      const randomDistance = Math.floor(Math.random() * 20) + 1;
+      let multiplier = 0.5;
 
-      if (deliveryType === "express") multiplier = 2;
-      if (deliveryType === "international") multiplier = 3;
+      if (deliveryType === "express") multiplier = 1;
+      if (deliveryType === "international") multiplier = 1.5;
 
       const cost = (weight * randomDistance * multiplier).toFixed(2);
       onComplete({ deliveryType, weight, sourceAddress, destinationAddress, cost });
