@@ -17,7 +17,7 @@ const Order = sequelize.define('Order', {
     defaultValue: 'shipped', // Default status
   }
 }, {
-  timestamps: true, // Adds createdAt and updatedAt columns
+  timestamps: false, // Adds createdAt and updatedAt columns
   tableName: 'orders', // Explicit table name if needed
 });
 
