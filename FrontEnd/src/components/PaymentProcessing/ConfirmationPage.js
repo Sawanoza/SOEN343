@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
-const ConfirmationPage = ({ trackingId, onReset }) => {
+const ConfirmationPage = ({ trackingId }) => {
+
   useEffect(() => {
     const postOrder = async () => {
       const currentDate = new Date();
@@ -8,8 +9,8 @@ const ConfirmationPage = ({ trackingId, onReset }) => {
 
       const orderData = {
         trackingID: trackingId,
-        arrivalDate: arrivalDate.toISOString(), // Convert to ISO string format
-        orderStatus: "en route"
+        arrivalDate: arrivalDate.toISOString(),
+        orderStatus: "en route",
       };
 
       try {
@@ -34,13 +35,17 @@ const ConfirmationPage = ({ trackingId, onReset }) => {
     postOrder();
   }, [trackingId]);
 
+  const handleReset = () => {
+    window.location.href= "../../../HTML/userPage.html";
+  };
+
   return (
     <div>
       <h1>Order Confirmation</h1>
       <p>Thank you for your order!</p>
       <p>Your tracking ID is: {trackingId}</p>
       <p>Estimated Delivery: 4 days</p>
-      <button onClick={onReset}>Place New Order</button>
+      <button onClick={handleReset}>Place New Order</button>
     </div>
   );
 };
