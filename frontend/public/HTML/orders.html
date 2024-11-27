@@ -21,10 +21,8 @@
                     <thead>
                         <tr>
                             <th>Order ID</th>
-                            <th>Customer</th>
-                            <th>Delivery Address</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>Arrival Date</th>
+                            <th>Order Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,7 +43,7 @@
         //==================================================================================================
         async function fetchOrders() {
             try {
-                const response = await fetch('http://localhost:3000/api/orders');
+                const response = await fetch('http://localhost:3000/order');
                 const orders = await response.json();
 
                 if (response.ok) {
@@ -56,11 +54,10 @@
                     orders.forEach(order => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${order.id}</td>
-                            <td>${order.customerName}</td>
-                            <td>${order.deliveryAddress}</td>
-                            <td>${order.status}</td>
-                            <td><button class="deleteBtn" onclick="deleteOrder(${order.id})">Delete</button></td>
+                            <td>${order.trackingID}</td>
+                            <td>${order.arrivalDate}</td>
+                            <td>${order.orderStatus}</td>
+                            <td><button class="deleteBtn" onclick="deleteOrder(${order.trackingID})">Delete</button></td>
                         `;
                         tableBody.appendChild(row);
                     });
@@ -84,7 +81,7 @@
             if (!confirmation) return;
 
             try {
-                const response = await fetch(`http://localhost:3000/api/orders/${orderId}`, {
+                const response = await fetch(`http://localhost:3000/order/${orderId}`, {
                     method: 'DELETE',
                 });
 

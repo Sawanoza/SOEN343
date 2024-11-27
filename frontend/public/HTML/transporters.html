@@ -45,7 +45,7 @@
         //==================================================================================================
         async function fetchTransporters() {
             try {
-                const response = await fetch('http://localhost:3000/api/transporters');
+                const response = await fetch('http://localhost:3000/transporter');
                 const transporters = await response.json();
 
                 if (response.ok) {

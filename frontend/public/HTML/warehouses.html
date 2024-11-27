@@ -45,7 +45,7 @@
         //==================================================================================================
         async function fetchWarehouses() {
             try {
-                const response = await fetch('http://localhost:3000/api/warehouses');
+                const response = await fetch('http://localhost:3000/warehouse');
                 const warehouses = await response.json();
 
                 if (response.ok) {
