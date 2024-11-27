@@ -39,28 +39,27 @@
     </div>
 
     <script>
-        //==================================================================================================
-        // GET ALL ORDERS FOR SPECIFIC USER (to be modified)
-        //==================================================================================================
         async function fetchOrders() {
             try {
-                const response = await fetch('http://localhost:3000/api/orders');
+                const response = await fetch('http://localhost:3000/order');
                 const orders = await response.json();
-
+    
                 if (response.ok) {
+                    //populate table with fetched order data
                     const tableBody = document.querySelector('#ordersTable tbody');
                     tableBody.innerHTML = '';
 
-                    orders.forEach(order => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${order.id}</td>
-                            <td>${order.item}</td>
-                            <td>${order.quantity}</td>
-                            <td>${order.status}</td>
-                        `;
-                        tableBody.appendChild(row);
-                    });
+                    const order = orders[0];
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${order.trackingID}</td>
+                        <td>${order.arrivalDate}</td>
+                        <td>${order.orderStatus}</td>
+                        <td><button class="deleteBtn" onclick="deleteOrder('${order.trackingID}')">Delete</button></td>
+                    `;
+                    tableBody.appendChild(row);
+                    
                 } else {
                     alert('Unable to fetch orders. Please try again.');
                 }
@@ -69,9 +68,8 @@
                 alert('An error occurred while fetching orders.');
             }
         }
-
+    
         // Fetch orders when the page loads
         document.addEventListener('DOMContentLoaded', fetchOrders);
     </script>
-</body>
 </html>
