@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './orderForm.css';
 
 const PaymentForm = ({ cost, onComplete, onCancel }) => {
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -32,121 +33,165 @@ const PaymentForm = ({ cost, onComplete, onCancel }) => {
     onComplete();
   };
 
+  // Format card number input to add spaces after every 4 digits
+  const handleCardNumberChange = (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 4) {
+      value = value.replace(/(\d{4})(?=\d)/g, "$1 "); 
+    }
+    setCardDetails({ ...cardDetails, cardNumber: value });
+  };
+
+  // Format expiry date input to add a slash after the month (MM/YY format)
+  const handleExpiryDateChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); 
+    if (value.length > 2) {
+      value = value.replace(/^(\d{2})(\d{0,2})/, "$1/$2"); 
+    }
+    setCardDetails({ ...cardDetails, expiryDate: value });
+  };
+
+  // Format CVV input to accept only 3 digits
+  const handleCvvChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); 
+    if (value.length > 3) {
+      value = value.slice(0, 3); 
+    }
+    setCardDetails({ ...cardDetails, cvv: value });
+  };
+
   return (
-    <div>
-      <h1>Payment Form</h1>
-      <p>Total Cost: ${cost}</p>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Payment Method:
-          <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
-            <option value="">Select</option>
-            <option value="credit-card">Credit Card</option>
-            <option value="wiretransfer">Wire Transfer</option>
-            <option value="cheque">Cheque</option>
-          </select>
-        </label>
-        <br />
+    <div className="Container">
+      <div className="FormWrap">
+        <div className="FormContent">
+          <div className="Form">
+            <h1 className="FormH1">Payment Form</h1>
+            <p className="FormLabel"><strong>Total Cost:</strong> ${cost}</p>
+            <form onSubmit={handleSubmit}>
+              <label className="FormLabel">
+                Payment Method:
+                <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} className="FormInput">
+                  <option value="">Select</option>
+                  <option value="credit-card">Credit Card</option>
+                  <option value="wiretransfer">Wire Transfer</option>
+                  <option value="cheque">Cheque</option>
+                </select>
+              </label>
+              <br />
 
-        {/* Credit Card Fields */}
-        {paymentMethod === "credit-card" && (
-          <div>
-            <h3>Credit Card Details</h3>
-            <label>
-              Card Number:
-              <input
-                type="text"
-                value={cardDetails.cardNumber}
-                onChange={(e) => setCardDetails({ ...cardDetails, cardNumber: e.target.value })}
-              />
-            </label>
-            <br />
-            <label>
-              Expiry Date:
-              <input
-                type="text"
-                placeholder="MM/YY"
-                value={cardDetails.expiryDate}
-                onChange={(e) => setCardDetails({ ...cardDetails, expiryDate: e.target.value })}
-              />
-            </label>
-            <br />
-            <label>
-              CVV:
-              <input
-                type="text"
-                value={cardDetails.cvv}
-                onChange={(e) => setCardDetails({ ...cardDetails, cvv: e.target.value })}
-              />
-            </label>
-            <br />
+              {/* Credit Card Fields */}
+              {paymentMethod === "credit-card" && (
+                <div>
+                  <h3 className="FormLabel">Credit Card Details</h3>
+                  <label className="FormLabel">
+                    Card Number:
+                    <input
+                      type="text"
+                      value={cardDetails.cardNumber}
+                      onChange={handleCardNumberChange}
+                      className="FormInput"
+                      maxLength="19" 
+                      placeholder="XXXX XXXX XXXX XXXX" 
+                    />
+                  </label>
+                  <br />
+                  <label className="FormLabel">
+                    Expiry Date:
+                    <input
+                      type="text"
+                      value={cardDetails.expiryDate}
+                      onChange={handleExpiryDateChange}
+                      className="FormInput"
+                      maxLength="5" 
+                      placeholder="MM/YY" 
+                    />
+                  </label>
+                  <br />
+                  <label className="FormLabel">
+                    CVV:
+                    <input
+                      type="text"
+                      value={cardDetails.cvv}
+                      onChange={handleCvvChange}
+                      className="FormInput"
+                      maxLength="3" 
+                      placeholder="CVV"  
+                    />
+                  </label>
+                  <br />
+                </div>
+              )}
+
+              {/* Wire Transfer Fields */}
+              {paymentMethod === "wiretransfer" && (
+                <div>
+                  <h3 className="FormLabel">Wire Transfer Details</h3>
+                  <label className="FormLabel">
+                    Account Number:
+                    <input
+                      type="text"
+                      value={wireDetails.accountNumber}
+                      onChange={(e) => setWireDetails({ ...wireDetails, accountNumber: e.target.value })}
+                      className="FormInput"
+                    />
+                  </label>
+                  <br />
+                  <label className="FormLabel">
+                    Bank Name:
+                    <input
+                      type="text"
+                      value={wireDetails.bankName}
+                      onChange={(e) => setWireDetails({ ...wireDetails, bankName: e.target.value })}
+                      className="FormInput"
+                    />
+                  </label>
+                  <br />
+                  <label className="FormLabel">
+                    SWIFT Code:
+                    <input
+                      type="text"
+                      value={wireDetails.swiftCode}
+                      onChange={(e) => setWireDetails({ ...wireDetails, swiftCode: e.target.value })}
+                      className="FormInput"
+                    />
+                  </label>
+                  <br />
+                </div>
+              )}
+
+              {/* Cheque Fields */}
+              {paymentMethod === "cheque" && (
+                <div>
+                  <h3 className="FormLabel">Cheque Details</h3>
+                  <label className="FormLabel">
+                    Cheque Number:
+                    <input
+                      type="text"
+                      value={chequeDetails.chequeNumber}
+                      onChange={(e) => setChequeDetails({ ...chequeDetails, chequeNumber: e.target.value })}
+                      className="FormInput"
+                    />
+                  </label>
+                  <br />
+                  <label className="FormLabel">
+                    Bank Name:
+                    <input
+                      type="text"
+                      value={chequeDetails.bankName}
+                      onChange={(e) => setChequeDetails({ ...chequeDetails, bankName: e.target.value })}
+                      className="FormInput"
+                    />
+                  </label>
+                  <br />
+                </div>
+              )}
+
+              <button type="submit" className="FormButton">Pay</button>
+              <button type="button" onClick={onCancel} className="FormButton CancelButton">Cancel</button>
+            </form>
           </div>
-        )}
-
-        {/* Wire Transfer Fields */}
-        {paymentMethod === "wiretransfer" && (
-          <div>
-            <h3>Wire Transfer Details</h3>
-            <label>
-              Account Number:
-              <input
-                type="text"
-                value={wireDetails.accountNumber}
-                onChange={(e) => setWireDetails({ ...wireDetails, accountNumber: e.target.value })}
-              />
-            </label>
-            <br />
-            <label>
-              Bank Name:
-              <input
-                type="text"
-                value={wireDetails.bankName}
-                onChange={(e) => setWireDetails({ ...wireDetails, bankName: e.target.value })}
-              />
-            </label>
-            <br />
-            <label>
-              SWIFT Code:
-              <input
-                type="text"
-                value={wireDetails.swiftCode}
-                onChange={(e) => setWireDetails({ ...wireDetails, swiftCode: e.target.value })}
-              />
-            </label>
-            <br />
-          </div>
-        )}
-
-        {/* Cheque Fields */}
-        {paymentMethod === "cheque" && (
-          <div>
-            <h3>Cheque Details</h3>
-            <label>
-              Cheque Number:
-              <input
-                type="text"
-                value={chequeDetails.chequeNumber}
-                onChange={(e) => setChequeDetails({ ...chequeDetails, chequeNumber: e.target.value })}
-              />
-            </label>
-            <br />
-            <label>
-              Bank Name:
-              <input
-                type="text"
-                value={chequeDetails.bankName}
-                onChange={(e) => setChequeDetails({ ...chequeDetails, bankName: e.target.value })}
-              />
-            </label>
-            <br />
-          </div>
-        )}
-
-        <button type="submit">Pay</button>
-        <button type="button" onClick={onCancel}>
-          Cancel
-        </button>
-      </form>
+        </div>
+      </div>
     </div>
   );
 };

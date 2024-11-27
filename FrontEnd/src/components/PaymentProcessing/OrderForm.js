@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './orderForm.css'; // Import CSS for the form
 
 const OrderForm = ({ onComplete }) => {
   const [deliveryType, setDeliveryType] = useState("standard");
@@ -18,7 +19,17 @@ const OrderForm = ({ onComplete }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (weight > 0 && sourceAddress.address && sourceAddress.postalCode && sourceAddress.city && sourceAddress.country && destinationAddress.address && destinationAddress.postalCode && destinationAddress.city && destinationAddress.country) {
+    if (
+      weight > 0 &&
+      sourceAddress.address &&
+      sourceAddress.postalCode &&
+      sourceAddress.city &&
+      sourceAddress.country &&
+      destinationAddress.address &&
+      destinationAddress.postalCode &&
+      destinationAddress.city &&
+      destinationAddress.country
+    ) {
       const randomDistance = Math.floor(Math.random() * 500) + 1;
       let multiplier = 1;
 
@@ -33,103 +44,108 @@ const OrderForm = ({ onComplete }) => {
   };
 
   return (
-    <div>
-      <h1>Order Form</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Delivery Type:
-          <select value={deliveryType} onChange={(e) => setDeliveryType(e.target.value)}>
-            <option value="standard">Standard</option>
-            <option value="express">Express</option>
-            <option value="international">International</option>
-          </select>
-        </label>
-        <br />
-        <label>
-          Weight (kg):
-          <input
-            type="number"
-            value={weight}
-            onChange={(e) => setWeight(parseFloat(e.target.value))}
-          />
-        </label>
-        <br />
-        <h3>Source Address</h3>
-        <label>
-          Address:
-          <input
-            type="text"
-            value={sourceAddress.address}
-            onChange={(e) => setSourceAddress({ ...sourceAddress, address: e.target.value })}
-          />
-        </label>
-        <br />
-        <label>
-          Postal Code:
-          <input
-            type="text"
-            value={sourceAddress.postalCode}
-            onChange={(e) => setSourceAddress({ ...sourceAddress, postalCode: e.target.value })}
-          />
-        </label>
-        <br />
-        <label>
-          City:
-          <input
-            type="text"
-            value={sourceAddress.city}
-            onChange={(e) => setSourceAddress({ ...sourceAddress, city: e.target.value })}
-          />
-        </label>
-        <br />
-        <label>
-          Country:
-          <input
-            type="text"
-            value={sourceAddress.country}
-            onChange={(e) => setSourceAddress({ ...sourceAddress, country: e.target.value })}
-          />
-        </label>
-        <br />
-        <h3>Destination Address</h3>
-        <label>
-          Address:
-          <input
-            type="text"
-            value={destinationAddress.address}
-            onChange={(e) => setDestinationAddress({ ...destinationAddress, address: e.target.value })}
-          />
-        </label>
-        <br />
-        <label>
-          Postal Code:
-          <input
-            type="text"
-            value={destinationAddress.postalCode}
-            onChange={(e) => setDestinationAddress({ ...destinationAddress, postalCode: e.target.value })}
-          />
-        </label>
-        <br />
-        <label>
-          City:
-          <input
-            type="text"
-            value={destinationAddress.city}
-            onChange={(e) => setDestinationAddress({ ...destinationAddress, city: e.target.value })}
-          />
-        </label>
-        <br />
-        <label>
-          Country:
-          <input
-            type="text"
-            value={destinationAddress.country}
-            onChange={(e) => setDestinationAddress({ ...destinationAddress, country: e.target.value })}
-          />
-        </label>
-        <br />
-        <button type="submit">Next</button>
-      </form>
+    <div className="Container">
+      <div className="FormWrap">
+        <div className="FormContent">
+          <div className="Form">
+            <h1 className="FormH1">Order Form</h1>
+            <form onSubmit={handleSubmit}>
+              <label className="FormLabel">
+                Delivery Type:
+                <select
+                  value={deliveryType}
+                  onChange={(e) => setDeliveryType(e.target.value)}
+                  className="FormInput"
+                >
+                  <option value="standard">Standard</option>
+                  <option value="express">Express</option>
+                  <option value="international">International</option>
+                </select>
+              </label>
+              <br />
+              <label className="FormLabel">
+                Weight (kg):
+                <input
+                  type="number"
+                  value={weight}
+                  onChange={(e) => setWeight(parseFloat(e.target.value))}
+                  className="FormInput"
+                />
+              </label>
+              <br />
+              <div className="AddressSection">
+                <h3>Source Address</h3>
+                <label className="FormLabel">Address:</label>
+                <input
+                  type="text"
+                  value={sourceAddress.address}
+                  onChange={(e) => setSourceAddress({ ...sourceAddress, address: e.target.value })}
+                  className="FormInput"
+                />
+                <br />
+                <label className="FormLabel">Postal Code:</label>
+                <input
+                  type="text"
+                  value={sourceAddress.postalCode}
+                  onChange={(e) => setSourceAddress({ ...sourceAddress, postalCode: e.target.value })}
+                  className="FormInput"
+                />
+                <br />
+                <label className="FormLabel">City:</label>
+                <input
+                  type="text"
+                  value={sourceAddress.city}
+                  onChange={(e) => setSourceAddress({ ...sourceAddress, city: e.target.value })}
+                  className="FormInput"
+                />
+                <br />
+                <label className="FormLabel">Country:</label>
+                <input
+                  type="text"
+                  value={sourceAddress.country}
+                  onChange={(e) => setSourceAddress({ ...sourceAddress, country: e.target.value })}
+                  className="FormInput"
+                />
+              </div>
+              <div className="AddressSection">
+                <h3>Destination Address</h3>
+                <label className="FormLabel">Address:</label>
+                <input
+                  type="text"
+                  value={destinationAddress.address}
+                  onChange={(e) => setDestinationAddress({ ...destinationAddress, address: e.target.value })}
+                  className="FormInput"
+                />
+                <br />
+                <label className="FormLabel">Postal Code:</label>
+                <input
+                  type="text"
+                  value={destinationAddress.postalCode}
+                  onChange={(e) => setDestinationAddress({ ...destinationAddress, postalCode: e.target.value })}
+                  className="FormInput"
+                />
+                <br />
+                <label className="FormLabel">City:</label>
+                <input
+                  type="text"
+                  value={destinationAddress.city}
+                  onChange={(e) => setDestinationAddress({ ...destinationAddress, city: e.target.value })}
+                  className="FormInput"
+                />
+                <br />
+                <label className="FormLabel">Country:</label>
+                <input
+                  type="text"
+                  value={destinationAddress.country}
+                  onChange={(e) => setDestinationAddress({ ...destinationAddress, country: e.target.value })}
+                  className="FormInput"
+                />
+              </div>
+              <button type="submit" className="FormButton">Next</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

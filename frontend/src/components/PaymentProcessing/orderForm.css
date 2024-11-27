@@ -1,0 +1,141 @@
+.Container {
+    min-height: 692px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: linear-gradient(
+        108deg,
+        #4e73df, #2a9df4
+    );
+}
+
+.FormWrap {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Icon {
+    margin-left: 32px;
+    margin-top: 32px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.FormContent {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Form {
+    background: #1c1c1c;
+    max-width: 600px;
+    height: auto;
+    width: 100%;
+    z-index: 1;
+    display: grid;
+    margin: 0 auto;
+    padding: 40px 32px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+    gap: 20px;
+}
+
+.FormH1 {
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.FormLabel {
+    /* margin-bottom: 8px; */
+    font-size: 1.1rem;
+    color: #f3f4f6; 
+    font-weight: normal;
+}
+
+.FormInput {
+    padding: 16px 16px;
+    border: none;
+    border-radius: 4px;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+}
+
+.FormButton {
+    background: #2a9df4; 
+    padding: 16px 0;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-align: center;
+    width: 100px;
+    margin-right: 10px;
+}
+
+.FormButton:hover {
+    background: #2178b3; 
+}
+
+.AddressSection {
+    background: #202020;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.AddressSection h3 {
+    color: #2a9df4;
+    margin-bottom: 10px;
+}
+
+.FormRow {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.Error {
+    color: red;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+* {
+    font-family: "Encode Sans Expanded", sans-serif;
+}
+
+@media screen and (max-width: 480px) {
+    .Form {
+        padding: 20px 20px;
+    }
+
+    .AddressSection {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .FormWrap {
+        height: 80%;
+    }
+
+    .Form {
+        padding: 16px 16px;
+    }
+}
