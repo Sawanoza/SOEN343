@@ -4,21 +4,22 @@ const Account = require('./models/account');
 const accountRoutes = require('./routes/accountRoutes');
 const OrderRoutes = require('./routes/orderRoutes');
 const transporterRoutes = require('./routes/transporterRoutes');
-const warehouseRoutes = require('./routes/warehouseRoutes');
+const warehouseRoutes = require('./routes/warehouseRoute');
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/database'); // Import Sequelize connection
-const Account = require('./models/account'); // Account model
+// const Account = require('./models/account'); // Account model
 const Order = require('./models/order'); // Order model
-const accountRoutes = require('./routes/accountRoutes');
+// const accountRoutes = require('./routes/accountRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 
 const app = express();
-const PORT = 3001;
+const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
 app.use('/account', accountRoutes);
+app.use('/api', accountRoutes);
 app.use('/order', orderRoutes);
 
 // Initialize database
