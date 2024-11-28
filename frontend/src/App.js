@@ -10,6 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} exact />
         <Route path="/test" element={<OrderProcess/>} exact />
+        <Route path="/confirm-order/:orderId" element={<ConfirmOrder />} />
       </Routes>
     </Router>
   );

@@ -12,10 +12,22 @@ const Order = sequelize.define('Order', {
     allowNull: false,
   },
   orderStatus: {
-    type: DataTypes.ENUM('shipped', 'en route', 'delayed', 'canceled'),
+    type: DataTypes.ENUM('shipped', 'en route', 'delayed', 'canceled', 'dropped-off'),
     allowNull: false,
     defaultValue: 'shipped', // Default status
-  }
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      isEmail: true, // Ensure the value is a valid email address
+    },
+  },
+  status: {
+    type: DataTypes.ENUM('created', 'confirmed', 'dropped-off'),
+    allowNull: false,
+    defaultValue: 'created', // Default status
+  },
 }, {
   timestamps: false, // Adds createdAt and updatedAt columns
   tableName: 'orders', // Explicit table name if needed
