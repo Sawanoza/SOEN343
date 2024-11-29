@@ -66,6 +66,26 @@ const OrderForm = ({ onComplete }) => {
       //=================================================================================================
 
       //=================================================================================================
+      // LOCALLY STORED LIST OF ALL ADDED ORDERS
+      //=================================================================================================
+      function addToList(item) {
+        let existingList = JSON.parse(localStorage.getItem('myList'));
+
+        if (!existingList) {
+          existingList = [];
+        }
+
+        existingList.push(item);
+
+        localStorage.setItem('myList', JSON.stringify(existingList));
+      }
+
+      addToList(trackingID);
+      //=================================================================================================
+
+
+
+      //=================================================================================================
       // GENERATE ARRIVAL DATE
       //=================================================================================================
       // Calculate the arrival date based on the delivery type
@@ -84,6 +104,8 @@ const OrderForm = ({ onComplete }) => {
       localStorage.setItem('arrivalDate', arrivalDate);
       //=================================================================================================
   
+
+
       //=================================================================================================
       // GENERATE ORDER STATUS
       //=================================================================================================
@@ -95,8 +117,7 @@ const OrderForm = ({ onComplete }) => {
       //=================================================================================================
       const generatePin = () => {
         const newPin = Math.floor(100000 + Math.random() * 900000);
-        localStorage.setItem('pin', newPin); 
-        console.log("Generated PIN saved to localStorage:", newPin);
+        localStorage.setItem('pin', newPin);
         return newPin;
       };
 

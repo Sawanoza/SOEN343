@@ -21,8 +21,9 @@
                     <thead>
                         <tr>
                             <th>Order ID</th>
-                            <th>Item</th>
-                            <th>Quantity</th>
+                            <th>Estimated Delivery Date</th>
+                            <th>Status</th>
+                            <th>PIN</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,35 +40,47 @@
 
     <script>
         async function fetchOrders() {
-            try {
-                const response = await fetch('http://localhost:3000/order');
-                const orders = await response.json();
-    
-                if (response.ok) {
-                    //populate table with fetched order data
-                    const tableBody = document.querySelector('#ordersTable tbody');
-                    tableBody.innerHTML = '';
+            const trackingIds = JSON.parse(localStorage.getItem('myList')) || [];
+            
+            if (trackingIds.length === 0) {
+                alert('No orders found in local storage.');
+                return;
+            }
 
-                    const order = orders[0];
-                    
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${order.trackingID}</td>
-                        <td>${order.arrivalDate}</td>
-                        <td>${order.orderStatus}</td>
-                    `;
-                    tableBody.appendChild(row);
-                    
-                } else {
-                    alert('Unable to fetch orders. Please try again.');
-                }
+            try {
+                const orders = await Promise.all(
+                    trackingIds.map(async (trackingId) => {
+                        const response = await fetch(`http://localhost:3000/order/${trackingId}`);
+                        if (response.ok) {
+                            return response.json();
+                        }
+                        return null;
+                    })
+                );
+    
+                const tableBody = document.querySelector('#ordersTable tbody');
+                tableBody.innerHTML = '';
+
+                orders.forEach((order) => {
+                    if (order) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${order.trackingID}</td>
+                            <td>${order.arrivalDate}</td>
+                            <td>${order.orderStatus}</td>
+                            <td>${order.pin}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    }
+                });
+                
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred while fetching orders.');
             }
         }
     
-        // Fetch orders when the page loads
         document.addEventListener('DOMContentLoaded', fetchOrders);
     </script>
+</body>
 </html>
