@@ -2,19 +2,17 @@ import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+// Import the SVG as a static file
+import droneIcon from '../../images/drone-1-svgrepo-com.svg';
+
 const DroneMap = () => {
   const mapRef = useRef();
 
-  const createDroneMarker = (lat, lng) => {
-    // SVG content for the drone icon (from the provided URL)
-    const droneSVG = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="32" height="32">
-        <path fill="blue" d="M471.2 96.6c-7.1-7.1-18.6-7.1-25.7 0L320 223.3V64c0-10.7-8.6-19.4-19.4-19.4H211.3c-10.7 0-19.4 8.6-19.4 19.4v159.3L66.5 96.6c-7.1-7.1-18.6-7.1-25.7 0-7.1 7.1-7.1 18.6 0 25.7l126.9 126.9H64c-10.7 0-19.4 8.6-19.4 19.4v79.3c0 10.7 8.6 19.4 19.4 19.4h104.2l-73.7 73.7c-7.1 7.1-7.1 18.6 0 25.7 7.1 7.1 18.6 7.1 25.7 0L192 374.7V448c0 10.7 8.6 19.4 19.4 19.4h89.2c10.7 0 19.4-8.6 19.4-19.4v-73.3l77.1 77.1c7.1 7.1 18.6 7.1 25.7 0 7.1-7.1 7.1-18.6 0-25.7l-126.9-126.9h97.8c10.7 0 19.4-8.6 19.4-19.4v-79.3c0-10.7-8.6-19.4-19.4-19.4h-104.2l73.7-73.7c7.1-7.1 7.1-18.6 0-25.7z"/>
-      </svg>`;
-
+  const createDroneMarker = (lat, lng, movementPattern, speed) => {
+    // Create a custom DivIcon with the imported SVG image
     const icon = new L.DivIcon({
       className: 'leaflet-div-icon no-background', // Custom class to remove the background
-      html: droneSVG, // Using the drone SVG directly
+      html: `<img src="${droneIcon}" alt="Drone Icon" width="32" height="32" />`,
       iconSize: [32, 32], // Size of the icon
       iconAnchor: [16, 16], // Position of the anchor (center)
       popupAnchor: [0, -32], // Popup location (above the icon)
@@ -22,15 +20,47 @@ const DroneMap = () => {
 
     const marker = L.marker([lat, lng], { icon }).addTo(mapRef.current);
 
-    // Animate the drone in a circle
+    // Animate the drone based on the specified movement pattern
     let angle = 0;
-    const radius = 0.02; // Radius for the circular motion
+    let step = 0;
+    const radius = 0.02; // Radius for the circular/spiral motion
     const center = [lat, lng]; // The center point to move around
 
     const animateDrone = () => {
-      angle = (angle + 0.5) % 360; // Slower rotation by reducing increment
-      const newLat = center[0] + radius * Math.cos((angle * Math.PI) / 180);
-      const newLng = center[1] + radius * Math.sin((angle * Math.PI) / 180);
+      let newLat, newLng;
+
+      switch (movementPattern) {
+        case 'circle':
+          angle = (angle + speed) % 360; // Circular motion with adjustable speed
+          newLat = center[0] + radius * Math.cos((angle * Math.PI) / 180);
+          newLng = center[1] + radius * Math.sin((angle * Math.PI) / 180);
+          break;
+
+        case 'zigzag':
+          step += speed * 0.01; // Zigzag motion with adjustable speed
+          newLat = center[0] + Math.sin(step) * radius;
+          newLng = center[1] + Math.cos(step * 2) * radius;
+          break;
+
+        case 'spiral':
+          angle = (angle + speed) % 360; // Spiral motion with adjustable speed
+          const dynamicRadius = radius + (angle / 360) * 0.01; // Gradually increase the radius
+          newLat = center[0] + dynamicRadius * Math.cos((angle * Math.PI) / 180);
+          newLng = center[1] + dynamicRadius * Math.sin((angle * Math.PI) / 180);
+          break;
+
+        case 'figure8':
+          angle = (angle + speed) % 360; // Figure-eight motion with adjustable speed
+          newLat = center[0] + radius * Math.sin((angle * Math.PI) / 180);
+          newLng = center[1] + radius * Math.sin((2 * angle * Math.PI) / 180);
+          break;
+
+        default:
+          // Default to circular motion
+          angle = (angle + speed) % 360;
+          newLat = center[0] + radius * Math.cos((angle * Math.PI) / 180);
+          newLng = center[1] + radius * Math.sin((angle * Math.PI) / 180);
+      }
 
       marker.setLatLng([newLat, newLng]);
 
@@ -42,25 +72,33 @@ const DroneMap = () => {
   };
 
   useEffect(() => {
+    // Initialize the map
     mapRef.current = L.map('map').setView([45.5017, -73.5673], 13); // Montreal, Quebec coordinates
 
     // Add OpenStreetMap TileLayer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapRef.current);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+    }).addTo(mapRef.current);
 
-    // Create multiple drone markers at different locations in Montreal
-    createDroneMarker(45.5017, -73.5673); // Drone 1 - Montreal coordinates
-    createDroneMarker(45.5037, -73.5673); // Drone 2 - Slightly north of Montreal
-    createDroneMarker(45.5057, -73.5700); // Drone 3 - Slightly east of Montreal
-    createDroneMarker(45.4997, -73.5633); // Drone 4 - Slightly south of Montreal
+    // Create multiple drone markers with different movement patterns and speeds
+    createDroneMarker(45.5017, -73.56, 'circle', 0.1); // Drone 1 - Circular motion (slow)
+    createDroneMarker(45.5037, -73.5673, 'zigzag', 0.1); // Drone 2 - Zigzag motion (very slow)
+    createDroneMarker(45.5000, -73.5700, 'spiral', 0.1); // Drone 3 - Spiral motion (faster)
+    createDroneMarker(45.4997, -73.5633, 'figure8', 0.02); // Drone 4 - Figure-eight motion (medium speed)
+    createDroneMarker(45.4647, -73.5633, 'figure8', 0.02); // Drone 4 - Figure-eight motion (medium speed)
+    createDroneMarker(45.4997, -73.013, 'figure8', 0.02); // Drone 4 - Figure-eight motion (medium speed)
+    createDroneMarker(46.5000, -73.5300, 'spiral', 0.1); // Drone 3 - Spiral motion (faster)
+
+
 
     return () => {
+      // Cleanup map on unmount
       mapRef.current.remove();
     };
   }, []);
 
   return (
     <div>
-      <h2>Drone Map - Montreal</h2>
       <div id="map" style={{ height: '500px', width: '100%' }}></div>
     </div>
   );
