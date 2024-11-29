@@ -55,22 +55,36 @@ router.get('/', async (req, res) => {
 
 
 
-// READ: Get a single order by tracking ID
-router.get('/:trackingID', async (req, res) => {
-  try {
-    const { trackingID } = req.params;
-    const order = await Order.findOne({ where: { trackingID } });
-
-    if (!order) {
-      return res.status(404).json({ error: 'Order not found.' });
-    }
-
-    res.json(order);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to fetch order.' });
+router.get('/:pin', async (req, res) => {
+  const pin = parseInt(req.params.pin, 10); 
+  if (isNaN(pin)) {
+    return res.status(400).json({ error: 'Invalid pin' });
   }
+
+  const order = await Order.findOne({ where: { pin } });
+
+  if (!order) {
+    return res.status(404).json({ error: 'Order not found.' });
+  }
+
+  res.json(order);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // UPDATE: Update an order's status or other details
 router.put('/:trackingID', async (req, res) => {
