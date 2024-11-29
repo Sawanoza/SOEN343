@@ -38,7 +38,7 @@
 
 .Form {
     background: #1c1c1c;
-    max-width: 600px;
+    max-width: 800px;
     height: auto;
     width: 100%;
     z-index: 1;
@@ -59,7 +59,8 @@
 }
 
 .FormLabel {
-    /* margin-bottom: 8px; */
+    margin-bottom: 8px;
+    margin-top: 8px;
     font-size: 1.1rem;
     color: #f3f4f6; 
     font-weight: normal;
@@ -115,6 +116,34 @@
     margin-top: -10px;
     margin-bottom: 10px;
 }
+
+.AddressSection {
+    display: flex;
+    gap: 20px; /* Adds spacing between the two sections */
+    justify-content: space-between; /* Aligns the two sections horizontally */
+    margin-bottom: 20px; /* Adds space below the sections */
+  }
+  
+  .AddressColumn {
+    flex: 1; /* Ensures both columns take up equal space */
+    display: flex;
+    flex-direction: column;
+    background: #202020;
+    padding: 20px;
+    border-radius: 4px;
+  }
+  
+  .AddressColumn h3 {
+    color: #2a9df4;
+    margin-bottom: 10px;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .AddressSection {
+      flex-direction: column; /* Stacks the sections vertically on smaller screens */
+    }
+  }
+  
 
 * {
     font-family: "Encode Sans Expanded", sans-serif;

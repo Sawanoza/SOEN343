@@ -8,10 +8,6 @@ const PaymentForm = ({ cost, onComplete, onCancel }) => {
   const [chequeDetails, setChequeDetails] = useState({ chequeNumber: "", bankName: "" });
   const [email, setEmail] = useState("");
 
-  const generatePin = () => {
-    return Math.floor(100000 + Math.random() * 900000);
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -38,9 +34,11 @@ const PaymentForm = ({ cost, onComplete, onCancel }) => {
     ///===============================================================================================
     // SEND EMAIL
     ///===============================================================================================
+    const trackingID = localStorage.getItem('trackingID');
+    const arrivalDate = localStorage.getItem('arrivalDate');
+    const pin = localStorage.getItem('pin');
+    
     try {
-      const pin = generatePin();
-
       const response = await fetch('http://localhost:3000/send-email', {
         method: 'POST',
         headers: {
@@ -49,7 +47,7 @@ const PaymentForm = ({ cost, onComplete, onCancel }) => {
         body: JSON.stringify({
           recipient: email,
           subject: 'Payment Received',
-          message: `Payment of $${cost} was made using ${paymentMethod}.\nYour PIN for this delivery is: ${pin}`,
+          message: `Payment of $${cost} was made using ${paymentMethod}.\n\nYour tracking ID is: ${trackingID}.\nYour estimated arrival date is: ${arrivalDate}. \nYour PIN for this delivery is: ${pin}.`,
         }),
       });
   

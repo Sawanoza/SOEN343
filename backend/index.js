@@ -44,24 +44,28 @@ async function initializeDatabase() {
     // Sample Orders
     const sampleOrders = [
       {
-        trackingID: 'TRK123456',
+        trackingID: 'TRK111111',
         arrivalDate: new Date('2024-12-01'),
         orderStatus: 'shipped',
+        pin: 111111
       },
       {
-        trackingID: 'TRK654321',
+        trackingID: 'TRK222222',
         arrivalDate: new Date('2024-12-05'),
         orderStatus: 'en route',
+        pin: 222222
       },
       {
-        trackingID: 'TRK789012',
+        trackingID: 'TRK333333',
         arrivalDate: new Date('2024-12-10'),
         orderStatus: 'delayed',
+        pin: 333333
       },
       {
-        trackingID: 'TRK345678',
+        trackingID: 'TRK444444',
         arrivalDate: new Date('2024-11-30'),
         orderStatus: 'canceled',
+        pin: 444444
       },
     ];
 
@@ -193,7 +197,7 @@ app.use('/users', accountRoutes);
 app.use('/order', OrderRoutes);
 app.use('/transporter', transporterRoutes);
 app.use('/warehouse', warehouseRoutes);
-// app.use('/orders', OrderRoutes);
+app.use('/orders', OrderRoutes);
 //===============================================================================================
 
 // Start the server

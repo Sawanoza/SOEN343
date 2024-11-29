@@ -12,9 +12,12 @@ const Order = sequelize.define('Order', {
     allowNull: false,
   },
   orderStatus: {
-    type: DataTypes.ENUM('shipped', 'en route', 'delayed', 'canceled'),
+    type: DataTypes.STRING,
     allowNull: false,
     defaultValue: 'shipped', // Default status
+  },
+  pin: {
+    type: DataTypes.INTEGER,
   }
 }, {
   timestamps: false, // Adds createdAt and updatedAt columns

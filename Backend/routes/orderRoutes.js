@@ -6,16 +6,17 @@ const router = express.Router();
 // CREATE: Add a new order
 router.post('/', async (req, res) => {
   try {
-    const { trackingID, arrivalDate, orderStatus } = req.body;
+    const { trackingID, arrivalDate, orderStatus, pin } = req.body;
 
-    if (!trackingID || !arrivalDate || !orderStatus ) {
+    if (!trackingID || !arrivalDate || !orderStatus || !pin ) {
       return res.status(400).json({ error: 'All fields are required.' });
     }
 
     const newOrder = await Order.create({
       trackingID,
       arrivalDate,
-      orderStatus
+      orderStatus,
+      pin
     });
 
     res.status(201).json(newOrder);
