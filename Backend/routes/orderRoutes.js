@@ -74,6 +74,28 @@ router.get('/:pin', async (req, res) => {
 
 
 
+//============================================================================
+router.patch('/:pin/deliver', async (req, res) => {
+  const pin = parseInt(req.params.pin, 10);
+  if (isNaN(pin)) {
+      return res.status(400).json({ error: 'Invalid pin' });
+  }
+
+  try {
+      const order = await Order.findOne({ where: { pin } });
+      if (!order) {
+          return res.status(404).json({ error: 'Order not found.' });
+      }
+
+      order.orderStatus = 'delivered';
+      await order.save();
+      res.json({ message: 'Order status updated to delivered.', order });
+  } catch (error) {
+      console.error('Error updating order status:', error);
+      res.status(500).json({ error: 'Failed to update order status.' });
+  }
+});
+//============================================================================
 
 
 

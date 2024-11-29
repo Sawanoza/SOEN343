@@ -48,15 +48,32 @@
                 const order = await response.json();
 
                 if (order) {
-                    const droneVideo = document.getElementById('droneVideo');
-                    const arrivalText = document.getElementById('arrivalText');
-                    
-                    droneVideo.style.display = 'block';
-                    arrivalText.style.display = 'block';
-                    
-                    droneVideo.play();
+                    // Send a PATCH request to update orderStatus to "delivered"
+                    const updateResponse = await fetch(`http://localhost:3000/order/${pin}/deliver`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
 
-                    arrivalText.style.display = 'block';
+                    if (updateResponse.ok) {
+                        // Show animation and confirmation
+                        const droneVideo = document.getElementById('droneVideo');
+                        const arrivalText = document.getElementById('arrivalText');
+                        
+                        droneVideo.style.display = 'block';
+                        arrivalText.style.display = 'block';
+                        
+                        droneVideo.play();
+
+                        arrivalText.style.display = 'block';
+                    } else {
+                        errorMessageElement.style.display = 'block';
+                        errorMessageElement.textContent = 'Failed to update order status!';
+                        errorMessageElement.style.color = 'black'; 
+                        errorMessageElement.style.fontWeight = 'bold';
+                        errorMessageElement.style.marginTop = '8px';
+                    }
                 }
             } else {
                 errorMessageElement.style.display = 'block';

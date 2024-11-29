@@ -40,16 +40,16 @@
 
     <script>
         async function fetchOrders() {
-            const pin = JSON.parse(localStorage.getItem('myList')) || [];
+            const pins = JSON.parse(localStorage.getItem('myList')) || [];
             
-            if (pin.length === 0) {
+            if (pins.length === 0) {
                 alert('No orders found in local storage.');
                 return;
             }
 
             try {
                 const orders = await Promise.all(
-                    pin.map(async (trackingId) => {
+                    pins.map(async (pin) => {
                         const response = await fetch(`http://localhost:3000/order/${pin}`);
                         if (response.ok) {
                             return response.json();
