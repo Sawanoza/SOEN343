@@ -15,6 +15,8 @@ const Warehouse = require('./models/warehouse')
 // const accountRoutes = require('./routes/accountRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 
+const nodemailer = require("nodemailer");
+
 const app = express();
 const PORT = 3000;
 
@@ -142,6 +144,47 @@ async function initializeDatabase() {
   }
 
 }
+
+
+
+
+
+
+//===============================================================================================
+// NODEMAILER
+//===============================================================================================
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'marcyves.malchev2003@gmail.com', 
+    pass: 'ygtw yqgg fvqc dolt',  
+  },
+});
+
+
+app.post('/send-email', (req, res) => {
+  const { recipient, subject, message } = req.body;
+
+  const mailOptions = {
+    from: 'marcyves.malchev2003@gmail.com',
+    to: recipient,
+    subject: subject,
+    text: message,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return res.status(500).json({ success: false, message: 'Error: ' + error.toString() });
+    }
+    res.status(200).json({ success: true, message: 'Email sent: ' + info.response });
+  });
+});
+//===============================================================================================
+
+
+
+
+
 
 //===============================================================================================
 // ROUTES

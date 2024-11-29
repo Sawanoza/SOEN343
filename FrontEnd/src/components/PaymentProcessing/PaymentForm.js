@@ -6,34 +6,71 @@ const PaymentForm = ({ cost, onComplete, onCancel }) => {
   const [cardDetails, setCardDetails] = useState({ cardNumber: "", expiryDate: "", cvv: "" });
   const [wireDetails, setWireDetails] = useState({ accountNumber: "", bankName: "", swiftCode: "" });
   const [chequeDetails, setChequeDetails] = useState({ chequeNumber: "", bankName: "" });
+  const [email, setEmail] = useState("");
 
-  const handleSubmit = (e) => {
+  const generatePin = () => {
+    return Math.floor(100000 + Math.random() * 900000);
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (paymentMethod === "credit-card" && (!cardDetails.cardNumber || !cardDetails.expiryDate || !cardDetails.cvv)) {
       alert("Please fill out all credit card details.");
       return;
     }
-
+  
     if (paymentMethod === "wiretransfer" && (!wireDetails.accountNumber || !wireDetails.bankName || !wireDetails.swiftCode)) {
       alert("Please fill out all wire transfer details.");
       return;
     }
-
+  
     if (paymentMethod === "cheque" && (!chequeDetails.chequeNumber || !chequeDetails.bankName)) {
       alert("Please fill out all cheque details.");
       return;
     }
-
+  
     if (!paymentMethod) {
       alert("Please select a payment method.");
       return;
     }
+  
+    ///===============================================================================================
+    // SEND EMAIL
+    ///===============================================================================================
+    try {
+      const pin = generatePin();
 
-    onComplete();
+      const response = await fetch('http://localhost:3000/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          recipient: email,
+          subject: 'Payment Received',
+          message: `Payment of $${cost} was made using ${paymentMethod}.\nYour PIN for this delivery is: ${pin}`,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (data.success) {
+        console.log('Email sent:', data.message);
+      } else {
+        console.error('Error sending email:', data.message);
+      }
+  
+      onComplete();
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
   };
 
-  // Format card number input to add spaces after every 4 digits
+  //===============================================================================================
+  // INPUT FORMATTING
+  //===============================================================================================
+  //format card number input to add spaces after every 4 digits
   const handleCardNumberChange = (e) => {
     let value = e.target.value.replace(/\D/g, "");
     if (value.length > 4) {
@@ -42,7 +79,7 @@ const PaymentForm = ({ cost, onComplete, onCancel }) => {
     setCardDetails({ ...cardDetails, cardNumber: value });
   };
 
-  // Format expiry date input to add a slash after the month (MM/YY format)
+  //format expiry date input to add a slash after the month (MM/YY format)
   const handleExpiryDateChange = (e) => {
     let value = e.target.value.replace(/\D/g, ""); 
     if (value.length > 2) {
@@ -51,7 +88,7 @@ const PaymentForm = ({ cost, onComplete, onCancel }) => {
     setCardDetails({ ...cardDetails, expiryDate: value });
   };
 
-  // Format CVV input to accept only 3 digits
+  //format CVV input to accept only 3 digits
   const handleCvvChange = (e) => {
     let value = e.target.value.replace(/\D/g, ""); 
     if (value.length > 3) {
@@ -59,6 +96,7 @@ const PaymentForm = ({ cost, onComplete, onCancel }) => {
     }
     setCardDetails({ ...cardDetails, cvv: value });
   };
+  //===============================================================================================
 
   return (
     <div className="Container">
@@ -68,6 +106,21 @@ const PaymentForm = ({ cost, onComplete, onCancel }) => {
             <h1 className="FormH1">Payment Form</h1>
             <p className="FormLabel"><strong>Total Cost:</strong> ${cost}</p>
             <form onSubmit={handleSubmit}>
+
+
+              {/* Email Input */}
+              <label className="FormLabel">
+                Your Email:
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="FormInput"
+                  required
+                  placeholder="Enter your email"/>
+              </label>
+
+
               <label className="FormLabel">
                 Payment Method:
                 <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} className="FormInput">
