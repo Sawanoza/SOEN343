@@ -10,7 +10,7 @@
 <body>
     <div class="Container">
         <div class="FormWrap">
-            <a class="Icon" href="http://localhost:3001/">Delivery.</a>
+            <!-- <a class="Icon" href="http://localhost:3001/">Delivery.</a> -->
             <div class="FormContent">
                 <div class="Header">
                     <h1>Your Orders</h1>
@@ -43,7 +43,6 @@
             const trackingIds = JSON.parse(localStorage.getItem('myList')) || [];
             
             if (trackingIds.length === 0) {
-                alert('No orders found in local storage.');
                 return;
             }
 

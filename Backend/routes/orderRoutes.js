@@ -37,6 +37,24 @@ router.get('/', async (req, res) => {
   }
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // READ: Get a single order by tracking ID
 router.get('/:trackingID', async (req, res) => {
   try {
@@ -96,5 +114,10 @@ router.delete('/:trackingID', async (req, res) => {
     res.status(500).json({ error: 'Failed to delete order.' });
   }
 });
+
+
+
+
+
 
 module.exports = router;

@@ -10,7 +10,7 @@
 <body>
     <div class="Container">
         <div class="FormWrap">
-            <a class="Icon" href="http://localhost:3001/">Delivery.</a>
+            <a class="Icon" href="http://localhost:3001/" onclick="clearLocalStorage()">Delivery.</a>
             <div class="FormContent">
                 <div class="UserHeader">
                     <h1>Welcome, User</h1>
@@ -34,5 +34,11 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function clearLocalStorage() {
+            localStorage.clear(); 
+        }
+    </script>
 </body>
 </html>

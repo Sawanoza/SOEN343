@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Confirmation</title>
+    <link rel="stylesheet" href="../CSS/deliveryConfirmation.css">
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <div class="pinInput">
+            <input type="text" id="pinInput" placeholder="Enter your PIN" maxlength="6" />
+        </div>
+        <button class="submitBtn" onclick="startAnimation()">Submit</button>
+        
+        <!-- Error message that will show in red text -->
+        <div id="errorMessage" class="error" style="display:none;"></div>
+    
+        <!-- Video element for the drone animation -->
+        <video id="droneVideo" class="droneVideo" style="display:none;" controls>
+            <source src="droneDelivery.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- Text after video -->
+        <div id="arrivalText" class="arrivalText" style="display:none;">
+            Delivery Confirmed! Your package should arrive in the next 5 minutes.
+        </div>
+
+        <!-- Back to Dashboard Button -->
+        <button id="backToDashboardBtn" class="submitBtn" onclick="goToDashboard()">Back to User Dashboard</button>
+    </div>
+    
+    <script>
+        async function startAnimation() {
+            const pin = document.getElementById('pinInput').value;
+            const response = await fetch(`http://localhost:3000/order/${pin}`);
+
+            const errorMessageElement = document.getElementById('errorMessage');
+            const backToDashboardBtn = document.getElementById('backToDashboardBtn');
+            
+            errorMessageElement.style.display = 'none';
+            errorMessageElement.textContent = '';
+
+            if (response.ok) {
+                const order = await response.json();
+
+                if (order) {
+                    const droneVideo = document.getElementById('droneVideo');
+                    const arrivalText = document.getElementById('arrivalText');
+                    
+                    droneVideo.style.display = 'block';
+                    arrivalText.style.display = 'block';
+                    
+                    droneVideo.play();
+
+                    arrivalText.style.display = 'block';
+                }
+            } else {
+                errorMessageElement.style.display = 'block';
+                errorMessageElement.textContent = 'Order not found for the given PIN!';
+                errorMessageElement.style.color = 'black'; 
+                errorMessageElement.style.fontWeight = 'bold';
+                errorMessageElement.style.marginTop = '8px';
+            }
+        }
+
+        function goToDashboard() {
+            window.location.href = '/HTML/userPage.html';
+        }
+    </script>
+    
+</body>
+</html>

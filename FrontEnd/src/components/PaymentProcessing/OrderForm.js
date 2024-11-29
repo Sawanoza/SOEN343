@@ -65,25 +65,6 @@ const OrderForm = ({ onComplete }) => {
       localStorage.setItem('trackingID', trackingID);
       //=================================================================================================
 
-      //=================================================================================================
-      // LOCALLY STORED LIST OF ALL ADDED ORDERS
-      //=================================================================================================
-      function addToList(item) {
-        let existingList = JSON.parse(localStorage.getItem('myList'));
-
-        if (!existingList) {
-          existingList = [];
-        }
-
-        existingList.push(item);
-
-        localStorage.setItem('myList', JSON.stringify(existingList));
-      }
-
-      addToList(trackingID);
-      //=================================================================================================
-
-
 
       //=================================================================================================
       // GENERATE ARRIVAL DATE
@@ -123,6 +104,26 @@ const OrderForm = ({ onComplete }) => {
 
       generatePin();
       const pin = localStorage.getItem('pin');
+      //=================================================================================================
+
+
+
+      //=================================================================================================
+      // LOCALLY STORED LIST OF ALL ADDED ORDERS
+      //=================================================================================================
+      function addToList(item) {
+        let existingList = JSON.parse(localStorage.getItem('myList'));
+
+        if (!existingList) {
+          existingList = [];
+        }
+
+        existingList.push(item);
+
+        localStorage.setItem('myList', JSON.stringify(existingList));
+      }
+
+      addToList(pin);
       //=================================================================================================
 
 
